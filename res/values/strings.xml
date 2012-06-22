@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Villain Toolkit</string>
+    
+    <!-- USER PROFILE STRINGS -->
+    <string name="username_text">Username</string>
+    <string name="user_profile_text">General info about the user will go here. Blah de blah blah....</string>
+    <string name="last_active_text">Last Active: </string>
+    <string name="join_date_text">Join Date: </string>
+    
+    <!-- ACCOUNTS SCREEN STRINGS -->
+    <string name="account_screen_title">Account</string>
+    <string name="view_profile_summary_text">View your profile.</string>
+    
+    <!-- DIALOG STRINGS -->
+    <string name="loading_dialog_title">Loading...</string>
+
+</resources>

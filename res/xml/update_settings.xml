@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="BACKGROUND SYNC" />
+    	
+    	<CheckBoxPreference
+    	    android:title="Enable background sync"
+    	    android:summary="Allow the application to check for ROM updates in the background."
+    	    android:defaultValue="true" />
+    	
+    <PreferenceCategory
+        android:title="NOTIFICATION SETTINGS" />
+    
+    	<CheckBoxPreference 
+    	    android:title="Notify me of new updates"
+    	    android:summary="Whether or not the application should send you a notification for new updates."
+    		android:defaultValue="true" />
+
+</PreferenceScreen>

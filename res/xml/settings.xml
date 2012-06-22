@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="VillainToolkit Settings" />
+    
+    <Preference
+        android:key="update_settings_pref"
+        android:title="Update Settings"
+        android:summary="Configure update settings." />
+    
+    <com.jieehd.villain.toolkit.Accounts
+        android:title="Add account"
+        android:summary="Log into your VillainROM account." />
+    
+    <Preference
+        android:key="notif_settings_pref"
+        android:title="Notification Settings"
+        android:summary="Configure notification settings." />
+    
+    <Preference
+        android:key="device_settings_pref"
+        android:title="Device settings"
+        android:summary="Configure device-specific settings.\n(Caution: Only for advanced users!)"/>
+
+</PreferenceScreen>
