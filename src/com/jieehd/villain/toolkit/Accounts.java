@@ -1,6 +1,5 @@
 package com.jieehd.villain.toolkit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
