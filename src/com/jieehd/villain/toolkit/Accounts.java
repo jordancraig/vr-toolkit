@@ -1,6 +1,5 @@
 package com.jieehd.villain.toolkit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -12,25 +11,25 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 public class Accounts extends DialogPreference implements OnSharedPreferenceChangeListener {
-	
+
 	private static AutoCompleteTextView user;
 	private static EditText pass;
 	private static Context cx;
-	
+
 	public Accounts(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
+
 		setDialogLayoutResource(R.layout.accounts);
 	}
-	
+
 	@Override
 	protected void onBindDialogView(View view) {
 		super.onBindDialogView(view);
-		
+
 		user = (AutoCompleteTextView) view.findViewById(R.id.usernameView);
 		pass = (EditText) view.findViewById(R.id.passwordView);
 	}
-	
+
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
@@ -56,7 +55,7 @@ public class Accounts extends DialogPreference implements OnSharedPreferenceChan
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences arg0, String arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

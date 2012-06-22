@@ -1,7 +1,6 @@
 package com.jieehd.villain.toolkit;
 
 
-import com.jieehd.villain.toolkit.R;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,9 @@ import android.widget.TabHost.TabSpec;
 
 @SuppressWarnings("deprecation")
 public class TabDisplay extends TabActivity {
+	
+	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
