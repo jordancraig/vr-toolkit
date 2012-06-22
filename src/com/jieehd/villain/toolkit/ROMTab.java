@@ -11,6 +11,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.jieehd.villain.toolkit.utils.Utils;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -30,7 +33,7 @@ public class ROMTab extends PreferenceActivity {
 	private static final String KEY_BUILD_VERSION = "rom_version_pref";
 	private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
-    public final static String device = Build.DEVICE.toUpperCase();
+    public final static String device = Utils.getAOKPVersion();
     public static MenuItem refresh;
     public static Dialog dialog;
     
@@ -43,7 +46,7 @@ public class ROMTab extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rom);
         
-        setStringSummary(KEY_BUILD_VERSION, Build.DISPLAY);
+        setStringSummary(KEY_BUILD_VERSION, device);
         dialog = new Dialog(this);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);
