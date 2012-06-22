@@ -33,7 +33,7 @@ public class ROMTab extends PreferenceActivity {
 	private static final String KEY_BUILD_VERSION = "rom_version_pref";
 	private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
-    public final static String device = Utils.getAOKPVersion();
+    public final static String device = Utils.getROMVersion();
     public static MenuItem refresh;
     public static Dialog dialog;
     
