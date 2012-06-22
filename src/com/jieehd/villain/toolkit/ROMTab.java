@@ -33,7 +33,7 @@ public class ROMTab extends PreferenceActivity {
 	private static final String KEY_BUILD_VERSION = "rom_version_pref";
 	private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
-    public final static String device = Utils.getModVersion();
+    public final static String device = Utils.getAOKPVersion();
     public static MenuItem refresh;
     public static Dialog dialog;
     
@@ -46,7 +46,7 @@ public class ROMTab extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rom);
         
-        setStringSummary(KEY_BUILD_VERSION, Build.DISPLAY);
+        setStringSummary(KEY_BUILD_VERSION, device);
         dialog = new Dialog(this);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);

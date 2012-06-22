@@ -5,16 +5,20 @@ import android.os.Build;
 import com.jieehd.villain.toolkit.utils.ShellCommand.CommandResult;
 
 public class Utils {
-	private static final String NULL = null;
 	public static final String LOGTAG = "VillainToolkit";
 
-	public static String getModVersion() {
+	public static String getAOKPVersion() {
 		ShellCommand cmd = new ShellCommand();
-		CommandResult modversion = cmd.su.runWaitFor("getprop ro.modversion");
-		if(modversion.stderr.equals(NULL)) {
-			return Build.DEVICE.toUpperCase();
-		} else {
-			return modversion.stdout;
-		}
+		CommandResult aokpversion = cmd.su.runWaitFor("getprop ro.aokp.version");
+		if(!aokpversion.success())
+			getCMVersion();
+		return aokpversion.stdout;
+	}
+	public static String getCMVersion() {
+		ShellCommand cmd = new ShellCommand();
+		CommandResult cmversion = cmd.su.runWaitFor("getprop ro.cm.version");
+		if(!cmversion.success())
+			return Build.DISPLAY;
+		return cmversion.stdout;
 	}
 }
