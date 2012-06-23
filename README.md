@@ -2,5 +2,8 @@
 
 
 
-vr-toolkit
+Villain Toolkit
 ==========
+
+Villain Toolkit is an open source application that ROM developers can use to notify their users of ROM and kernel updates
+over the air. It also allows the developer to present a list of tweaks or options that the user can flash seperately.
