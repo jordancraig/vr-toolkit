@@ -57,13 +57,29 @@ public class AboutTab extends PreferenceActivity {
         	}
         });
         
-        Preference follow_twitter = (Preference) findPreference("follow_twitter_pref");
-        follow_twitter.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        Preference follow_jieehd = (Preference) findPreference("follow_jieehd_pref");
+        follow_jieehd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
 				// TODO Auto-generated method stub
                 String url = "http://www.twitter.com/jordancraig94";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+				return false;
+			}
+        	
+        });
+        
+        
+        Preference follow_netchip = (Preference) findPreference("follow_netchip_pref");
+        follow_netchip.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				// TODO Auto-generated method stub
+                String url = "http://www.twitter.com/NetchipTL";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

@@ -18,9 +18,14 @@
 	     android:title="Follow" />
 	 
 	 	<Preference
-	 	    android:key="follow_twitter_pref"
+	 	    android:key="follow_jieehd_pref"
 	 	    android:title="Twitter"
-	 	    android:summary="Follow the developer on twitter." />
+	 	    android:summary="Follow JieeHD on Twitter." />
+	 	
+	 	<Preference
+	 	    android:key="follow_netchip_pref"
+	 	    android:title="Netchip"
+	 	    android:summary="Follow Netchip on Twitter." />
     
 
 </PreferenceScreen>
