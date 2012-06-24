@@ -178,7 +178,9 @@ public class ROMTab extends PreferenceActivity {
     	  try {
     		  dialog.dismiss();
     		  if (device.equals(result.mRom)) {
+    			  
     			  new ToastMessageTask().execute("No new version!");
+    			  
     		  } else {
     			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
     			  newvDialog.setTitle("New version!");
