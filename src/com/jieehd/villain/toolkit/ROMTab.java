@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -71,6 +72,8 @@ public class ROMTab extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference arg0) {
 				// TODO Auto-generated method stub
 					dialog.show();
+					Log.d(Utils.LOGTAG, device);
+					Log.d(Utils.LOGTAG, version);
 					new Read().execute(device);
 				return false;
 			}
