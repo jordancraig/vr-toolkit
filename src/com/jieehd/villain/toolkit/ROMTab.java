@@ -18,7 +18,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -40,6 +39,7 @@ public class ROMTab extends PreferenceActivity {
     
     JSONObject json;
     TextView tv_display;
+    
     /** Called when the activity is first created. */
     @Override
     @SuppressWarnings({ "deprecation", "unused" })
@@ -114,7 +114,7 @@ public class ROMTab extends PreferenceActivity {
           JSONObject stream = new JSONObject(data);
           JSONObject quote = stream.getJSONObject("villain-roms");
           return quote;
-        }else{
+        } else {
           return null;
         }
       }

@@ -87,5 +87,20 @@ public class AboutTab extends PreferenceActivity {
 			}
         	
         });
+        
+        Preference follow_vr = (Preference) findPreference("follow_vr_pref");
+        follow_vr.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference arg0) {
+				// TODO Auto-generated method stub
+                String url = "http://www.twitter.com/VillainROM";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+				return false;
+			}
+        	
+        });
     }
 }

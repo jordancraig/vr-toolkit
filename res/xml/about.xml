@@ -26,6 +26,11 @@
 	 	    android:key="follow_netchip_pref"
 	 	    android:title="Netchip"
 	 	    android:summary="Follow Netchip on Twitter." />
+	 	
+	 	<Preference
+	 	    android:key="follow_vr_pref"
+	 	    android:title="VillainROM"
+	 	    android:summary="Follow VillainROM on Twitter." />
     
 
 </PreferenceScreen>
