@@ -1,5 +1,6 @@
 package com.jieehd.villain.toolkit;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.http.HttpEntity;
@@ -12,14 +13,12 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.jieehd.villain.toolkit.utils.Utils;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
@@ -28,11 +27,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jieehd.villain.toolkit.utils.Utils;
+
 public class ROMTab extends PreferenceActivity {
 	
-	private static final String KEY_BUILD_VERSION = "rom_version_pref";
-	private static final String KEY_TEST = "test_pref";	
+    private static final String KEY_BUILD_VERSION = "rom_version_pref";
+    private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
+    public final static File sdDir = (Environment.getExternalStorageDirectory());
+    public static final String PATH = sdDir + "VillainToolKit/";
     public String device;
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
@@ -176,7 +179,16 @@ public class ROMTab extends PreferenceActivity {
     		  if (device.equals(result.mRom)) {
     			  new ToastMessageTask().execute("No new version!");
     		  } else {
-    			  new ToastMessageTask().execute("New version available!");
+    			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
+    			  newvDialog.setTitle("New version!");
+    			  newvDialog.setMessage("Do you want to update?");
+    			  newvDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						new FetchFile().execute(result.mRom, result.mUrl);
+					}
+				});
     		  }
     		  
     	  } catch (Exception e){
