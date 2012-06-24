@@ -85,7 +85,8 @@ public class ShellCommand {
             return process;
         }
         
-        private String getStreamLines(InputStream is) {
+        @SuppressWarnings("deprecation")
+		private String getStreamLines(InputStream is) {
             String out = null;
             StringBuffer buffer = null;
             DataInputStream dis = new DataInputStream(is);
