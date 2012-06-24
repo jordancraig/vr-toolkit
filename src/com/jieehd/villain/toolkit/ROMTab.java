@@ -71,7 +71,7 @@ public class ROMTab extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference arg0) {
 				// TODO Auto-generated method stub
 					dialog.show();
-					new Read().execute(version);
+					new Read().execute(device);
 				return false;
 			}
         	
