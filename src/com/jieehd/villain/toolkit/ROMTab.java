@@ -31,13 +31,14 @@ import com.jieehd.villain.toolkit.utils.Utils;
 
 public class ROMTab extends PreferenceActivity {
 	
-	private static final String KEY_BUILD_VERSION = "rom_version_pref";
-	private static final String KEY_TEST = "test_pref";	
+    private static final String KEY_BUILD_VERSION = "rom_version_pref";
+    private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
-    public final static String device = Utils.getROMVersion();
     public final static File sdDir = (Environment.getExternalStorageDirectory());
     public static final String PATH = sdDir + "VillainToolKit/";
+    public String device;
     public static MenuItem refresh;
+    public static final Utils utils = new Utils();
     public static Dialog dialog;
     
     JSONObject json;
@@ -48,6 +49,12 @@ public class ROMTab extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rom);
+        
+        try {
+        	device = utils.new Read().execute().get().toString();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
         
         setStringSummary(KEY_BUILD_VERSION, device);
         dialog = new Dialog(this);	    
