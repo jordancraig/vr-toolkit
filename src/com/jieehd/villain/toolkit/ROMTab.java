@@ -36,7 +36,8 @@ public class ROMTab extends PreferenceActivity {
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
     public final static File sdDir = (Environment.getExternalStorageDirectory());
     public static final String PATH = sdDir + "VillainToolKit/";
-    public String device;
+    public static final String device = android.os.Build.DEVICE.toUpperCase();
+    public String version;
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
     public static Dialog dialog;
@@ -52,12 +53,12 @@ public class ROMTab extends PreferenceActivity {
         addPreferencesFromResource(R.xml.rom);
         
         try {
-        	device = utils.new Read().execute().get().toString();
+        	version = utils.new Read().execute().get().toString();
         } catch (Exception e) {
         	e.printStackTrace();
         }
         
-        setStringSummary(KEY_BUILD_VERSION, device);
+        setStringSummary(KEY_BUILD_VERSION, version);
         dialog = new Dialog(this);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);
@@ -177,7 +178,7 @@ public class ROMTab extends PreferenceActivity {
       public void onPostExecute(final Display result) {
     	  try {
     		  dialog.dismiss();
-    		  if (device.equals(result.mRom)) {
+    		  if (version.equals(result.mRom)) {
     			  
     			  new ToastMessageTask().execute("No new version!");
     			  
