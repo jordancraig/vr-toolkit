@@ -28,6 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.Utils;
 
 public class ROMTab extends PreferenceActivity {
@@ -128,7 +129,8 @@ public class ROMTab extends PreferenceActivity {
       }
       
       public class Read extends AsyncTask<String, Integer, Display> {
-      @Override
+
+	@Override
       protected Display doInBackground(String... params) {
       	final String device = params[0];
         // TODO Auto-generated method stub
@@ -194,6 +196,8 @@ public class ROMTab extends PreferenceActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new FetchFile().execute(result.mRom, result.mUrl);
+						// how to fix this?
+						MD5hash.md5(ROMTab.PATH + ROMname + ".zip");
 					}
 				});
     		  }

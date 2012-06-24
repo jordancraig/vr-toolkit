@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.ShellCommand;
 import com.jieehd.villain.toolkit.utils.ShellCommand.CommandResult;
 import com.jieehd.villain.toolkit.utils.Utils;
@@ -47,9 +48,9 @@ public class FetchFile extends AsyncTask<String, String, String> {
 		  
 	  }
   
-	  protected void onPostExecute(String...params) {
+	  protected void onPostExecute(String... params) {
 			  ShellCommand cmd = new ShellCommand();
-			  CommandResult cmdr = cmd.su.runWaitFor("echo 'install_zip(\"" + ROMTab.PATH + params[0] + "\");'" + " > /cache/recovery/extendedcommand\n");
+			  CommandResult cmdr = cmd.su.runWaitFor("echo 'install_zip(\"" + ROMTab.PATH + params[0] + ".zip" + "\");'" + " > /cache/recovery/extendedcommand\n");
 			  if(!cmdr.success())
 				  Log.e(Utils.LOGTAG, "Zip flash command failed");
 			  else
