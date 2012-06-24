@@ -22,11 +22,13 @@ import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.Utils;
 
 public class ROMTab extends PreferenceActivity {
@@ -36,7 +38,8 @@ public class ROMTab extends PreferenceActivity {
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
     public final static File sdDir = (Environment.getExternalStorageDirectory());
     public static final String PATH = sdDir + "VillainToolKit/";
-    public String device;
+    public static final String device = android.os.Build.DEVICE.toUpperCase();
+    public String version;
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
     public static Dialog dialog;
@@ -52,12 +55,12 @@ public class ROMTab extends PreferenceActivity {
         addPreferencesFromResource(R.xml.rom);
         
         try {
-        	device = utils.new Read().execute().get().toString();
+        	version = utils.new Read().execute().get().toString();
         } catch (Exception e) {
         	e.printStackTrace();
         }
         
-        setStringSummary(KEY_BUILD_VERSION, device);
+        setStringSummary(KEY_BUILD_VERSION, version);
         dialog = new Dialog(this);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);
@@ -70,6 +73,8 @@ public class ROMTab extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference arg0) {
 				// TODO Auto-generated method stub
 					dialog.show();
+					Log.d(Utils.LOGTAG, device);
+					Log.d(Utils.LOGTAG, version);
 					new Read().execute(device);
 				return false;
 			}
@@ -124,7 +129,8 @@ public class ROMTab extends PreferenceActivity {
       }
       
       public class Read extends AsyncTask<String, Integer, Display> {
-      @Override
+
+	@Override
       protected Display doInBackground(String... params) {
       	final String device = params[0];
         // TODO Auto-generated method stub
@@ -177,7 +183,7 @@ public class ROMTab extends PreferenceActivity {
       public void onPostExecute(final Display result) {
     	  try {
     		  dialog.dismiss();
-    		  if (device.equals(result.mRom)) {
+    		  if (version.equals(result.mRom)) {
     			  
     			  new ToastMessageTask().execute("No new version!");
     			  
@@ -190,6 +196,8 @@ public class ROMTab extends PreferenceActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new FetchFile().execute(result.mRom, result.mUrl);
+						// how to fix this?
+						MD5hash.md5(ROMTab.PATH + ROMname + ".zip");
 					}
 				});
     		  }
