@@ -6,6 +6,7 @@ import android.os.Build;
 import com.jieehd.villain.toolkit.utils.ShellCommand.CommandResult;
 
 public class Utils {
+	
 	public static final String LOGTAG = "VillainToolkit";
 
 	

@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MD5hash {
-	public String md5(String s) {
+	public static String md5(String s) {
 	    try {
 	        MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
 	        digest.update(s.getBytes());

@@ -181,23 +181,28 @@ public class ROMTab extends PreferenceActivity {
       @Override
       @SuppressWarnings("deprecation")
       public void onPostExecute(final Display result) {
+    	  
+    	  final String ROM = result.mRom;
+    	  final String CHANGELOG = result.mChange;
+    	  final String BUILD = result.mBuild;
+    	  final String URL = result.mUrl;
+    	  
     	  try {
     		  dialog.dismiss();
-    		  if (version.equals(result.mRom)) {
+    		  if (version.equals(ROM)) {
     			  
     			  new ToastMessageTask().execute("No new version!");
     			  
     		  } else {
     			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
     			  newvDialog.setTitle("New version!");
-    			  newvDialog.setMessage("Do you want to update?");
+    			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
     			  newvDialog.setButton("OK", new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						new FetchFile().execute(result.mRom, result.mUrl);
-						// how to fix this?
-						MD5hash.md5(ROMTab.PATH + ROMname + ".zip");
+						new FetchFile().execute(ROM, URL);
+						MD5hash.md5(ROMTab.PATH + ROM + ".zip");
 					}
 				});
     		  }
