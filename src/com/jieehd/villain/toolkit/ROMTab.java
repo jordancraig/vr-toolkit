@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceFragment;
+import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +33,7 @@ import android.widget.Toast;
 import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.Utils;
 
-public class ROMTab extends PreferenceFragment {
+public class ROMTab extends PreferenceActivity {
 	
     private static final String KEY_BUILD_VERSION = "rom_version_pref";
     private static final String KEY_TEST = "test_pref";	
