@@ -15,15 +15,17 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,7 @@ import android.widget.Toast;
 import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.Utils;
 
-public class ROMTab extends PreferenceActivity {
+public class ROMTab extends PreferenceFragment {
 	
     private static final String KEY_BUILD_VERSION = "rom_version_pref";
     private static final String KEY_TEST = "test_pref";	
@@ -43,6 +45,8 @@ public class ROMTab extends PreferenceActivity {
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
     public static Dialog dialog;
+    public static View view;
+    public static Context cx;
     
     JSONObject json;
     TextView tv_display;
@@ -61,10 +65,10 @@ public class ROMTab extends PreferenceActivity {
         }
         
         setStringSummary(KEY_BUILD_VERSION, version);
-        dialog = new Dialog(this);	    
+        dialog = new Dialog(cx);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);
-		Spinner spin = (Spinner) findViewById(R.id.spinner);
+		Spinner spin = (Spinner) view.findViewById(R.id.spinner);
         
         Preference test = (Preference) findPreference(KEY_TEST);
         test.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -173,7 +177,7 @@ public class ROMTab extends PreferenceActivity {
   	     }
   	    // This is executed in the context of the main GUI thread
   	     protected void onPostExecute(String result){
-  	            Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
+  	            Toast toast = Toast.makeText(cx.getApplicationContext(), result, Toast.LENGTH_SHORT);
   	            toast.show();
   	     }
   	 }
@@ -194,7 +198,7 @@ public class ROMTab extends PreferenceActivity {
     			  new ToastMessageTask().execute("No new version!");
     			  
     		  } else {
-    			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
+    			  AlertDialog newvDialog = new AlertDialog.Builder(cx).create();
     			  newvDialog.setTitle("New version!");
     			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
     			  newvDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -209,7 +213,7 @@ public class ROMTab extends PreferenceActivity {
     		  
     	  } catch (Exception e){
     		  e.printStackTrace();
-				AlertDialog alertDialog = new AlertDialog.Builder(ROMTab.this).create();
+				AlertDialog alertDialog = new AlertDialog.Builder(cx).create();
 				alertDialog.setTitle("Device not found!");
 				alertDialog.setMessage("Couldn't find your device/ROM on our servers! If you think we did something wrong, feel free to abuse us on IRC.");
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

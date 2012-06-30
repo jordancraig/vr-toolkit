@@ -200,12 +200,15 @@ public class TweaksTab extends ListActivity {
 			} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ToastMessageTask().execute("A server issue occured, please try again.");
 			} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ToastMessageTask().execute("Error whilst reading content.");
 			} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new ToastMessageTask().execute("No content for your device.");
 			}
 
 			return null;
