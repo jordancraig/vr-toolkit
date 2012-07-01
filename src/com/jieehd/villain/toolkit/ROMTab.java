@@ -25,12 +25,10 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.Utils;
 
 public class ROMTab extends PreferenceActivity {
@@ -39,14 +37,13 @@ public class ROMTab extends PreferenceActivity {
     private static final String KEY_TEST = "test_pref";	
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
     public final static File sdDir = (Environment.getExternalStorageDirectory());
-    public static final String PATH = sdDir + "VillainToolKit/";
-    public static final String device = android.os.Build.DEVICE.toUpperCase();
+    public static final String PATH = sdDir + "/VillainToolKit/ROMs/";
+    public static final String device = android.os.Build.MODEL.toUpperCase();
     public String version;
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
     public static Dialog dialog;
-    public static View view;
-    public static Context cx;
+    public static Context CX;
     
     JSONObject json;
     TextView tv_display;
@@ -65,10 +62,10 @@ public class ROMTab extends PreferenceActivity {
         }
         
         setStringSummary(KEY_BUILD_VERSION, version);
-        dialog = new Dialog(cx);	    
+        dialog = new Dialog(this);	    
 		dialog.setTitle("Loading..");
 		dialog.setContentView(R.layout.spinner_dialog);
-		Spinner spin = (Spinner) view.findViewById(R.id.spinner);
+		Spinner spin = (Spinner) findViewById(R.id.spinner);
         
         Preference test = (Preference) findPreference(KEY_TEST);
         test.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -80,7 +77,7 @@ public class ROMTab extends PreferenceActivity {
 					Log.d(Utils.LOGTAG, device);
 					Log.d(Utils.LOGTAG, version);
 					new Read().execute(device);
-				return false;
+				return true;
 			}
         	
         });
@@ -146,17 +143,16 @@ public class ROMTab extends PreferenceActivity {
   			String build = json.getJSONObject("device").getJSONArray(device).getJSONObject(0).getString("rom");
   			return new Display(version, changelog, downurl, build);
 
-        	} catch (ClientProtocolException e) {
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
-        	} catch (IOException e) {
-
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
-        	} catch (JSONException e) {
-        		// TODO Auto-generated catch block
-        		e.printStackTrace();
-        	}
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
         	return null;
       }
@@ -177,7 +173,7 @@ public class ROMTab extends PreferenceActivity {
   	     }
   	    // This is executed in the context of the main GUI thread
   	     protected void onPostExecute(String result){
-  	            Toast toast = Toast.makeText(cx.getApplicationContext(), result, Toast.LENGTH_SHORT);
+  	            Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
   	            toast.show();
   	     }
   	 }
@@ -191,14 +187,26 @@ public class ROMTab extends PreferenceActivity {
     	  final String BUILD = result.mBuild;
     	  final String URL = result.mUrl;
     	  
+    	  CX = getApplicationContext();
+    	  
+	      boolean file = new File(PATH).exists(); {
+		     if (file == true) {
+		      		
+		     }else if (file == false){
+		    	 
+		      	new File(PATH).mkdirs();
+		     }
+	      }
+	    	 
+      	
+    	  
     	  try {
     		  dialog.dismiss();
-    		  if (version.equals(ROM)) {
-    			  
+    		  if (version.equals(ROM)) {    			  
     			  new ToastMessageTask().execute("No new version!");
     			  
     		  } else {
-    			  AlertDialog newvDialog = new AlertDialog.Builder(cx).create();
+    			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
     			  newvDialog.setTitle("New version!");
     			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
     			  newvDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -206,14 +214,14 @@ public class ROMTab extends PreferenceActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						new FetchFile().execute(ROM, URL);
-						MD5hash.md5(ROMTab.PATH + ROM + ".zip");
 					}
 				});
+    			newvDialog.show();
     		  }
     		  
     	  } catch (Exception e){
     		  e.printStackTrace();
-				AlertDialog alertDialog = new AlertDialog.Builder(cx).create();
+				AlertDialog alertDialog = new AlertDialog.Builder(ROMTab.this).create();
 				alertDialog.setTitle("Device not found!");
 				alertDialog.setMessage("Couldn't find your device/ROM on our servers! If you think we did something wrong, feel free to abuse us on IRC.");
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {

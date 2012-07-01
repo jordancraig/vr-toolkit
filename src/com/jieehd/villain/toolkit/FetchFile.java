@@ -1,52 +1,42 @@
 package com.jieehd.villain.toolkit;
 
-import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
+import android.app.DownloadManager;
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
-import com.jieehd.villain.toolkit.utils.MD5hash;
 import com.jieehd.villain.toolkit.utils.ShellCommand;
 import com.jieehd.villain.toolkit.utils.ShellCommand.CommandResult;
 import com.jieehd.villain.toolkit.utils.Utils;
 
 public class FetchFile extends AsyncTask<String, String, String> {
+	
+	public static Context cx;
+	public static final String PATH = "/VillainToolkit/ROMs/";
   
 	  protected String doInBackground(String... params) {
+		
 	    final String ROMname = params[0];
 	    final String URL = params[1];
-	    try {
-	      URL getUrl = new URL(URL);
-	      URLConnection ucon = getUrl.openConnection();
-	      final int lengthOfFile = ucon.getContentLength();
-	      ucon.connect();
-	      InputStream input = new BufferedInputStream(getUrl.openStream());
-	      OutputStream output = new FileOutputStream(ROMTab.PATH + ROMname + ".zip");
-	      byte data[] = new byte[1024];
-	      int current;
-	      long total = 0;
-	      while ((current = input.read(data)) != -1) {
-	             output.write(data, 0, current);
-	        total += current;
-	        // updateProgress(total, lengthOfFile);
-	        }
-	      output.flush();
-	      output.close();
-	      input.close();
-	    } catch (Exception e) {
-	      // TODO: handle exception
-	    }
+	    	DownloadManager.Request request = new DownloadManager.Request(Uri.parse(URL));
+	    	request.setDescription(ROMname);
+	    	request.setTitle("VR Toolkit");
+	    	// in order for this if to run, you must use the android 3.2 to compile your app
+	    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	    	    request.allowScanningByMediaScanner();
+	    	    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+	    	}
+	    	request.setDestinationInExternalPublicDir(PATH, ROMname + ".zip");
+
+	    	// get download service and enqueue file
+	    	DownloadManager manager = (DownloadManager) ROMTab.CX.getSystemService(Context.DOWNLOAD_SERVICE);
+	    	manager.enqueue(request);
+	    	
 		return null;  
 	  }
   
-	  protected void onProgressUpdate(final long total, final int lengthOfFile) {
-		  
-	  }
   
 	  protected void onPostExecute(String... params) {
 			  ShellCommand cmd = new ShellCommand();

@@ -40,7 +40,7 @@ public class TweaksTab extends ListActivity {
 	public static String URL = "http://dl.dropbox.com/u/44265003/tweaks.json";
 	public static JSONObject json;
 	public static Preference avail_tweaks;
-	public static String device = Build.DEVICE.toUpperCase();
+	public static String device = Build.MODEL.toUpperCase();
 	public static String name;
 	public static ListView showTweaks;
 	public static List<String> listItems = new ArrayList<String>();
