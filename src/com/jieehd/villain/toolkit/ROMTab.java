@@ -15,8 +15,12 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -206,7 +210,7 @@ public class ROMTab extends PreferenceActivity {
     			  new ToastMessageTask().execute("No new version!");
     			  
     		  } else {
-    			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
+    			  final AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
     			  newvDialog.setTitle("New version!");
     			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
     			  newvDialog.setButton("Download", new DialogInterface.OnClickListener() {
@@ -221,7 +225,7 @@ public class ROMTab extends PreferenceActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
-						
+						newvDialog.dismiss();
 					}
     				 
     			 });
@@ -230,7 +234,26 @@ public class ROMTab extends PreferenceActivity {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// TODO Auto-generated method stub
+						String ns = Context.NOTIFICATION_SERVICE;
+						NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 						
+						int icon = R.drawable.ic_stat_ic_notify_reminder;
+						CharSequence tickerText = "VR Toolkit - Update Reminder";
+						long when = System.currentTimeMillis();
+
+						Notification notification = new Notification(icon, tickerText, when);
+						
+						Context context = getApplicationContext();
+						CharSequence contentTitle = "VR Toolkit";
+						CharSequence contentText = "New update for: " + ROM;
+						Intent notificationIntent = new Intent(ROMTab.this, ROMTab.class);
+						PendingIntent contentIntent = PendingIntent.getActivity(ROMTab.this, 0, notificationIntent, 0);
+
+						notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+						
+						final int NOTIFY = 1;
+
+						mNotificationManager.notify(NOTIFY, notification);
 					}
 				});
     			 newvDialog.show();
