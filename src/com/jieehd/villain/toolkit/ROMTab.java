@@ -209,14 +209,31 @@ public class ROMTab extends PreferenceActivity {
     			  AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.this).create();
     			  newvDialog.setTitle("New version!");
     			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
-    			  newvDialog.setButton("OK", new DialogInterface.OnClickListener() {
+    			  newvDialog.setButton("Download", new DialogInterface.OnClickListener() {
+					
+    				  @Override
+    				  public void onClick(DialogInterface dialog, int which) {
+						new FetchFile().execute(ROM, URL);
+    				  }
+    			  });
+    			 newvDialog.setButton2("Cancel", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+					}
+    				 
+    			 });
+    			 newvDialog.setButton3("Remind Me", new DialogInterface.OnClickListener() {   				 
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						new FetchFile().execute(ROM, URL);
+						// TODO Auto-generated method stub
+						
 					}
 				});
-    			newvDialog.show();
+    			 newvDialog.show();
     		  }
     		  
     	  } catch (Exception e){

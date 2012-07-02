@@ -17,13 +17,13 @@ public class Utils {
 
 			ShellCommand cmd = new ShellCommand();
 
-			CommandResult modversion = cmd.su.runWaitFor("getprop ro.modversion");
+			CommandResult modversion = cmd.sh.runWaitFor("getprop ro.modversion");
 
 			if(modversion.stdout.equals("")) {				
-				CommandResult cmversion = cmd.su.runWaitFor("getprop ro.cm.version");
+				CommandResult cmversion = cmd.sh.runWaitFor("getprop ro.cm.version");
 
 				if(cmversion.stdout.equals("")) {
-					CommandResult aokpversion = cmd.su.runWaitFor("getprop ro.aokp.version");
+					CommandResult aokpversion = cmd.sh.runWaitFor("getprop ro.aokp.version");
 
 					if(aokpversion.stdout.equals(""))						
 						return Build.DISPLAY;
