@@ -143,10 +143,11 @@ public class TweaksTab extends ListActivity {
 				    	  switch(which) {
 					    	  case 0:
 					    		  String url = urlItems.get(pos);
-					    		  new ToastMessageTask().execute(url);
+					    		  String zip_name = listItems.get(pos);
+					    		  new FetchFile().execute(zip_name,url);
 					    		  break;
 					    	  case 1:
-
+					    		  
 					    		  break;
 					    	  case 2:
 					    		  //TODO: Fix broken favorites method

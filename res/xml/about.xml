@@ -13,19 +13,25 @@
 	        android:key="about_app"
 	        android:title="Application Version"
 	        android:summary="" />
+	    
+	    <Preference 
+	        android:key="opensource_license"
+	        android:title="Open source license" />
+	    
+	    <Preference
+	        android:key="toolkit_stats"
+	        android:title="Statistics"
+	        android:summary="Help us improve the app by opting into annonymous statistics reporting." />
+	        
 	 
 	 <PreferenceCategory
-	     android:title="Follow" />
+	     android:title="Keep up to date!" />
 	 
 	 	<Preference
 	 	    android:key="follow_jieehd_pref"
 	 	    android:title="Twitter"
 	 	    android:summary="Follow JieeHD on Twitter." />
 	 	
-	 	<Preference
-	 	    android:key="follow_netchip_pref"
-	 	    android:title="Netchip"
-	 	    android:summary="Follow Netchip on Twitter." />
 	 	
 	 	<Preference
 	 	    android:key="follow_vr_pref"

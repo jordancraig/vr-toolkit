@@ -1,6 +1,9 @@
 package com.jieehd.villain.toolkit;
 
 
+import com.jieehd.villain.toolkit.stats.AnonymousStats;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -12,6 +15,8 @@ import android.preference.PreferenceActivity;
 
 public class AboutTab extends PreferenceActivity {
     /** Called when the activity is first created. */
+	
+	public static Context cx;
 	
     @Override
     @SuppressWarnings("deprecation")
@@ -57,6 +62,32 @@ public class AboutTab extends PreferenceActivity {
         	}
         });
         
+        Preference licence = (Preference) findPreference("opensource_license");
+        licence.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(AboutTab.this, License.class);
+				startActivity(i);
+				return false;
+			}
+        	
+        });
+        
+        Preference stats = (Preference) findPreference("toolkit_stats");
+        stats.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(AboutTab.this, AnonymousStats.class);
+				startActivity(i);
+				return false;
+			}
+        	
+        });
+        
         Preference follow_jieehd = (Preference) findPreference("follow_jieehd_pref");
         follow_jieehd.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
@@ -72,21 +103,6 @@ public class AboutTab extends PreferenceActivity {
         	
         });
         
-        
-        Preference follow_netchip = (Preference) findPreference("follow_netchip_pref");
-        follow_netchip.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
-			@Override
-			public boolean onPreferenceClick(Preference arg0) {
-				// TODO Auto-generated method stub
-                String url = "http://www.twitter.com/NetchipTL";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-				return false;
-			}
-        	
-        });
         
         Preference follow_vr = (Preference) findPreference("follow_vr_pref");
         follow_vr.setOnPreferenceClickListener(new OnPreferenceClickListener() {

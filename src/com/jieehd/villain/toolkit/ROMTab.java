@@ -29,6 +29,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class ROMTab extends PreferenceActivity {
     public static MenuItem refresh;
     public static final Utils utils = new Utils();
     public static Dialog dialog;
-    public static Context CX;
+    public static Context cx;
     
     JSONObject json;
     TextView tv_display;
@@ -191,7 +192,7 @@ public class ROMTab extends PreferenceActivity {
     	  final String BUILD = result.mBuild;
     	  final String URL = result.mUrl;
     	  
-    	  CX = getApplicationContext();
+    	  cx = getApplicationContext();
     	  
 	      boolean file = new File(PATH).exists(); {
 		     if (file == true) {
@@ -243,13 +244,12 @@ public class ROMTab extends PreferenceActivity {
 
 						Notification notification = new Notification(icon, tickerText, when);
 						
-						Context context = getApplicationContext();
 						CharSequence contentTitle = "VR Toolkit";
 						CharSequence contentText = "New update for: " + ROM;
 						Intent notificationIntent = new Intent(ROMTab.this, ROMTab.class);
 						PendingIntent contentIntent = PendingIntent.getActivity(ROMTab.this, 0, notificationIntent, 0);
 
-						notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+						notification.setLatestEventInfo(ROMTab.this, contentTitle, contentText, contentIntent);
 						
 						final int NOTIFY = 1;
 

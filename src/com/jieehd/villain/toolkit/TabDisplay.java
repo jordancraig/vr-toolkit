@@ -12,9 +12,9 @@ import android.widget.TabHost.TabSpec;
 
 @SuppressWarnings("deprecation")
 public class TabDisplay extends TabActivity {
-	
-	
-	
+
+
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,12 +47,19 @@ public class TabDisplay extends TabActivity {
         aboutspec.setIndicator("About");
         Intent tab4Intent = new Intent(this, AboutTab.class);
         aboutspec.setContent(tab4Intent);
+        
+        //Tab for feedback
+        TabSpec feedbackspec = tabHost.newTabSpec("Bugs");
+        feedbackspec.setIndicator("Bugs");
+        Intent tab5Intent = new Intent(this, FeedbackTab.class);
+        feedbackspec.setContent(tab5Intent);
  
         // Adding all TabSpec to TabHost
         tabHost.addTab(kernelspec); // Adding kernels tab
         tabHost.addTab(romspec); // Adding roms tab
         tabHost.addTab(tweaksspec); // Adding tweaks tab
         tabHost.addTab(aboutspec); // Adding about tab
+        tabHost.addTab(feedbackspec); //adding bugs tab
     }
     
     @Override
