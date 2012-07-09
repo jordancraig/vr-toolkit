@@ -48,11 +48,7 @@
             android:name="com.jieehd.villain.toolkit.stats.AnonymousStats"
             android:label="@string/app_name" >
         </activity>
-        
-        <activity
-            android:name="com.jieehd.villain.toolkit.stats.ReportingService"
-            android:label="@string/app_name" >
-        </activity>
+      
         
         <activity
             android:name="com.jieehd.villain.toolkit.stats.PreviewData"
@@ -64,15 +60,25 @@
             android:label="@string/app_name" >
         </activity>
         
-        <activity
-            android:name="com.jieehd.villain.toolkit.stats."
-            android:label="@string/app_name" >
-        </activity>
         
-        <activity
-            android:name="com.jieehd.villain.toolkit.stats.ReportingServiceManager"
-            android:label="@string/app_name" >
-        </activity>
+      	<receiver 
+      	    android:name="com.jieehd.villain.toolkit.stats.ReportingServiceManager"
+            android:enabled="true"
+          	android:exported="false"
+            android:label="ReportingServiceManager">
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" />
+              <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+           </intent-filter>
+
+        </receiver>
+        
+       	<service 
+           android:label="ReportingService"
+           android:enabled="true"
+           android:exported="false"
+           android:name="com.jieehd.villain.toolkit.stats.ReportingService">
+      	</service>
         
         <activity
             android:name="com.jieehd.villain.toolkit.utils.MD5hash"

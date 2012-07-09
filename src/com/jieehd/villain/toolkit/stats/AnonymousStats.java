@@ -52,14 +52,13 @@ public class AnonymousStats extends PreferenceActivity
     private SharedPreferences mPrefs;
     private Context cx;
 
-    @SuppressLint("WorldReadableFiles")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getPreferenceManager() != null) {
             addPreferencesFromResource(R.xml.annonymous_stats);
             PreferenceScreen prefSet = getPreferenceScreen();
-            mPrefs = this.getSharedPreferences("VRToolkit", MODE_WORLD_READABLE);
+            mPrefs = this.getSharedPreferences("VRToolkit", Context.MODE_PRIVATE);
             mEnableReporting = (CheckBoxPreference) prefSet.findPreference(ANONYMOUS_OPT_IN);
             mViewStats = (Preference) prefSet.findPreference(VIEW_STATS);
             boolean firstBoot = mPrefs.getBoolean(ANONYMOUS_FIRST_BOOT, true);
@@ -135,6 +134,7 @@ public class AnonymousStats extends PreferenceActivity
         if (which == DialogInterface.BUTTON_POSITIVE) {
             mOkClicked = true;
             mPrefs.edit().putBoolean(ANONYMOUS_OPT_IN, true).apply();
+            cx = getApplicationContext();
             ReportingServiceManager.launchService(cx);
         } else if (which == DialogInterface.BUTTON_NEGATIVE){
             mEnableReporting.setChecked(false);

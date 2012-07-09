@@ -2,6 +2,7 @@ package com.jieehd.villain.toolkit;
 
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +14,7 @@ import android.widget.TabHost.TabSpec;
 @SuppressWarnings("deprecation")
 public class TabDisplay extends TabActivity {
 
-
+	public static Context cx;
 
     /** Called when the activity is first created. */
     @Override
@@ -60,6 +61,7 @@ public class TabDisplay extends TabActivity {
         tabHost.addTab(tweaksspec); // Adding tweaks tab
         tabHost.addTab(aboutspec); // Adding about tab
         tabHost.addTab(feedbackspec); //adding bugs tab
+        
     }
     
     @Override

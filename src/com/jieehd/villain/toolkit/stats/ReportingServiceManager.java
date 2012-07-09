@@ -43,7 +43,7 @@ public class ReportingServiceManager extends BroadcastReceiver {
     }
 
     protected static void setAlarm (Context ctx) {
-        SharedPreferences prefs = ctx.getSharedPreferences("VRToolkit", 0);
+        SharedPreferences prefs = ctx.getSharedPreferences("VRToolkit", Context.MODE_PRIVATE);
         prefs.edit().putBoolean(AnonymousStats.ANONYMOUS_ALARM_SET, false).apply();
         boolean optedIn = prefs.getBoolean(AnonymousStats.ANONYMOUS_OPT_IN, true);
         boolean firstBoot = prefs.getBoolean(AnonymousStats.ANONYMOUS_FIRST_BOOT, true);
@@ -65,7 +65,7 @@ public class ReportingServiceManager extends BroadcastReceiver {
     }
 
     public static void launchService (Context ctx) {
-        ConnectivityManager cm = (ConnectivityManager) cx.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             SharedPreferences prefs = ctx.getSharedPreferences("VRToolkit", 0);
