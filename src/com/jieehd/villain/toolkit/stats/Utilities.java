@@ -18,7 +18,6 @@ package com.jieehd.villain.toolkit.stats;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import com.jieehd.villain.toolkit.utils.ShellCommand;
 import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;

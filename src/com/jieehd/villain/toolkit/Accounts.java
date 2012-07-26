@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.DialogPreference;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+@SuppressWarnings("unused")
 public class Accounts extends DialogPreference implements OnSharedPreferenceChangeListener {
 
 	private static AutoCompleteTextView user;

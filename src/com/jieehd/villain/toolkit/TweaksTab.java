@@ -113,7 +113,7 @@ public class TweaksTab extends ListActivity {
 		     }
 	    }
     
-    public JSONObject getQuote() throws ClientProtocolException, IOException, JSONException{
+    public JSONObject getTweak() throws ClientProtocolException, IOException, JSONException{
 		HttpClient client = new DefaultHttpClient();
     	StringBuilder url = new StringBuilder(URL);
     	HttpGet get = new HttpGet(url.toString());
@@ -185,13 +185,13 @@ public class TweaksTab extends ListActivity {
 			// TODO Auto-generated method stub
 			try {
 
-				json = getQuote();
+				json = getTweak();
 				JSONArray avail_tweaks = null;
 				HashMap<String, String> tweaks_list = new HashMap<String,String>();
 				avail_tweaks = json.getJSONObject("device").getJSONArray(device);
 					for (int i = 0; i < avail_tweaks.length(); i++) {
 					    JSONObject row = avail_tweaks.getJSONObject(i);
-					    name = row.getString("tweak");
+					    String name = row.getString("tweak");
 					    String url = row.getString("url");
 					    tweaks_list.put(name, url);
 					}

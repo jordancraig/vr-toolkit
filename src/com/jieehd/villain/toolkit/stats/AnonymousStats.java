@@ -16,7 +16,6 @@
 
 package com.jieehd.villain.toolkit.stats;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
