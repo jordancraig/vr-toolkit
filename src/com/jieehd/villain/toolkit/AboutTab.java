@@ -1,7 +1,6 @@
 package com.jieehd.villain.toolkit;
 
 
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -18,10 +17,8 @@ public class AboutTab extends PreferenceFragment {
     /** Called when the activity is first created. */
 	
 	public static Context cx;
-	
-	public class DisplayUi extends TabActivity {
+
 	    @Override
-	    @SuppressWarnings("deprecation")
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        addPreferencesFromResource(R.xml.about);
@@ -45,7 +42,7 @@ public class AboutTab extends PreferenceFragment {
 	        
 	        PackageInfo pInfo = null;
 			try {
-				pInfo = cx.getPackageManager().getPackageInfo(cx.getPackageName(), 0);
+				pInfo = TabDisplay.mContext.getPackageManager().getPackageInfo(TabDisplay.mContext.getPackageName(), 0);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -70,7 +67,7 @@ public class AboutTab extends PreferenceFragment {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(cx, License.class);
+					Intent i = new Intent(TabDisplay.mContext, License.class);
 					startActivity(i);
 					return false;
 				}
@@ -83,7 +80,7 @@ public class AboutTab extends PreferenceFragment {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 					// TODO Auto-generated method stub
-					Intent i = new Intent(cx, AnonymousStats.class);
+					Intent i = new Intent(TabDisplay.mContext, AnonymousStats.class);
 					startActivity(i);
 					return false;
 				}
@@ -122,4 +119,3 @@ public class AboutTab extends PreferenceFragment {
 	        });
 	    }
 	}
-}

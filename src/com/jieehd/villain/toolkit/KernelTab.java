@@ -13,7 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -30,7 +29,6 @@ public class KernelTab extends PreferenceFragment {
     public final static String URL = "http://dl.dropbox.com/u/44265003/update.json";
     public static Context cx;
 
-	public class DisplayUi extends TabActivity {
 	    /** Called when the activity is first created. */
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class KernelTab extends PreferenceFragment {
 					@Override
 					public boolean onPreferenceClick(Preference preference) {
 						// TODO Auto-generated method stub
-						AlertDialog alertDialog = new AlertDialog.Builder(KernelTab.DisplayUi.this).create();
+						AlertDialog alertDialog = new AlertDialog.Builder(TabDisplay.mContext).create();
 						alertDialog.setTitle("Why is my kernel unsupported?");
 						alertDialog.setMessage("Unfortunately due to hosting and compatibility, not all kernels for your device can be supported in this application. While we would like to include as many as possible, it is not viable to include all custom kernels for a myriad of devices. Sorry!");
 						alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -161,4 +159,3 @@ public class KernelTab extends PreferenceFragment {
 	    }
 	    
     }
-}

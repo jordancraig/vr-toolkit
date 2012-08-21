@@ -1,5 +1,6 @@
 package com.jieehd.villain.toolkit;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -19,7 +20,6 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TabActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +38,9 @@ import android.widget.Toast;
 
 import com.jieehd.villain.toolkit.utils.Utils;
 
+@SuppressWarnings("deprecation")
 public class ROMTab extends PreferenceFragment {
+	
 	
     private static final String KEY_BUILD_VERSION = "rom_version_pref";
     private static final String KEY_TEST = "test_pref";	
@@ -56,15 +58,14 @@ public class ROMTab extends PreferenceFragment {
     
     JSONObject json;
     TextView tv_display;
-    
-    public class DisplayUi extends TabActivity {
+
     
     
 	    /** Called when the activity is first created. */
 	    @Override
-	    @SuppressWarnings({ "deprecation", "unused" })
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
+	        Log.d("ROMTab", "Started DisplayUi");
 	        addPreferencesFromResource(R.xml.rom);
 	        
 	        try {
@@ -74,10 +75,7 @@ public class ROMTab extends PreferenceFragment {
 	        }
 	        
 	        setStringSummary(KEY_BUILD_VERSION, version);
-	        dialog = new Dialog(getApplicationContext());	    
-			dialog.setTitle("Loading..");
-			dialog.setContentView(R.layout.spinner_dialog);
-			Spinner spin = (Spinner) findViewById(R.id.spinner);
+
 	        
 	        Preference test = (Preference) findPreference(KEY_TEST);
 	        test.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -85,6 +83,11 @@ public class ROMTab extends PreferenceFragment {
 				@Override
 				public boolean onPreferenceClick(Preference arg0) {
 					// TODO Auto-generated method stub
+			        	dialog = new Dialog(TabDisplay.mContext);	    
+			        	dialog.setTitle("Loading..");
+			        	dialog.setContentView(R.layout.spinner_dialog);
+			        	@SuppressWarnings("unused")
+						Spinner spin = (Spinner) view.findViewById(R.id.spinner);
 						dialog.show();
 						Log.d(Utils.LOGTAG, device);
 						Log.d(Utils.LOGTAG, version);
@@ -96,11 +99,10 @@ public class ROMTab extends PreferenceFragment {
 	        
 	    }
 	    
-    
+	    
     
 
     
-	    @SuppressWarnings("deprecation")
 	    private void setStringSummary(String preference, String value) {
 	        try {
 	            findPreference(preference).setSummary(value);
@@ -187,13 +189,12 @@ public class ROMTab extends PreferenceFragment {
 	  	     }
 	  	    // This is executed in the context of the main GUI thread
 	  	     protected void onPostExecute(String result){
-	  	            Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
+	  	            Toast toast = Toast.makeText(cx, result, Toast.LENGTH_SHORT);
 	  	            toast.show();
 	  	     }
 	  	 }
 	      
 	      @Override
-	      @SuppressWarnings("deprecation")
 	      public void onPostExecute(final Display result) {
 	    	  
 	    	  final String ROM = result.mRom;
@@ -220,7 +221,7 @@ public class ROMTab extends PreferenceFragment {
 	    			  new ToastMessageTask().execute("No new version!");
 	    			  
 	    		  } else {
-	    			  final AlertDialog newvDialog = new AlertDialog.Builder(ROMTab.DisplayUi.this).create();
+	    			  final AlertDialog newvDialog = new AlertDialog.Builder(TabDisplay.mContext).create();
 	    			  newvDialog.setTitle("New version!");
 	    			  newvDialog.setMessage("Build: " + BUILD + "\nChangelog: " + CHANGELOG);
 	    			  newvDialog.setButton("Download", new DialogInterface.OnClickListener() {
@@ -245,7 +246,7 @@ public class ROMTab extends PreferenceFragment {
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
 							String ns = Context.NOTIFICATION_SERVICE;
-							NotificationManager mNotificationManager = (NotificationManager) TabDisplay.mContext.getSystemService(ns);
+							NotificationManager mNotificationManager = (NotificationManager) cx.getSystemService(ns);
 							
 							int icon = R.drawable.ic_stat_ic_notify_reminder;
 							CharSequence tickerText = "VR Toolkit - Update Reminder";
@@ -256,12 +257,12 @@ public class ROMTab extends PreferenceFragment {
 							CharSequence contentTitle = "VR Toolkit";
 							CharSequence contentText = "New update for: " + ROM;
 							Intent notificationIntent = new Intent(TabDisplay.mContext, ROMTab.class);
-							PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
+							PendingIntent contentIntent = PendingIntent.getActivity(cx, 0, notificationIntent, 0);
 	
-							notification.setLatestEventInfo(ROMTab.DisplayUi.this, contentTitle, contentText, contentIntent);
+							notification.setLatestEventInfo(cx, contentTitle, contentText, contentIntent);
 							
 							final int NOTIFY = 1;
-	
+							
 							mNotificationManager.notify(NOTIFY, notification);
 						}
 					});
@@ -270,7 +271,7 @@ public class ROMTab extends PreferenceFragment {
 	    		  
 	    	  } catch (Exception e){
 	    		  e.printStackTrace();
-					AlertDialog alertDialog = new AlertDialog.Builder(ROMTab.DisplayUi.this).create();
+					AlertDialog alertDialog = new AlertDialog.Builder(TabDisplay.mContext).create();
 					alertDialog.setTitle("Device not found!");
 					alertDialog.setMessage("Couldn't find your device/ROM on our servers! If you think we did something wrong, feel free to abuse us on IRC.");
 					alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -281,10 +282,8 @@ public class ROMTab extends PreferenceFragment {
 					     
 					});
 					alertDialog.show();
-	    	  }
-	       }
+	    	 }
 	    }
-	      
-    }
+	}
 
 }
